@@ -7,4 +7,11 @@ dist/
 !.env.example
 output/
 .playwright-cli/
-.wrangler/
+.deploy.env
+.deploy.env.*
+!.deploy.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.log

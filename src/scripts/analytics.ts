@@ -1,4 +1,4 @@
-import { analytics } from '../data/analytics';
+import { analytics, analyticsEnabled } from '../data/analytics';
 
 type Consent = 'granted' | 'denied';
 declare global {
@@ -10,8 +10,8 @@ declare global {
 }
 
 export function initAnalytics() {
-  // A production build can also run on localhost or a Cloudflare preview URL.
-  if (!import.meta.env.PROD || location.protocol !== 'https:' || !analytics.hostnames.includes(location.hostname)) return;
+  // Production builds may also be served by a local or staging preview.
+  if (!import.meta.env.PROD || !analyticsEnabled || location.protocol !== 'https:' || !analytics.hostnames.includes(location.hostname)) return;
 
   const banner = document.getElementById('analytics-consent');
   if (!banner) return;

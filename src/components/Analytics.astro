@@ -1,5 +1,6 @@
 ---
-const enabled = import.meta.env.PROD;
+import { analyticsEnabled } from '../data/analytics';
+const enabled = import.meta.env.PROD && analyticsEnabled;
 ---
 {enabled && (
   <section class="analytics-consent" id="analytics-consent" aria-label="Analytics cookies" hidden>

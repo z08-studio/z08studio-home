@@ -1,0 +1,8 @@
+# Add these site blocks to the server's existing HTTPS gateway configuration.
+z08studio.com {
+	reverse_proxy z08studio-home:8080
+}
+
+www.z08studio.com {
+	redir https://z08studio.com{uri} permanent
+}
