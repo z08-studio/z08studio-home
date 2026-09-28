@@ -2,63 +2,59 @@
 import Layout from '../layouts/Layout.astro';
 import Arrow from '../components/Arrow.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { projects, studio } from '../data/studio';
-const year = new Date().getFullYear();
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { projects } from '../data/studio';
 ---
 <Layout>
   <div class="site-shell" id="top">
-    <header class="site-header">
-      <a class="wordmark" href="/" aria-label="z08 studio home">
-        <img src="/images/z08-black.svg" alt="" width="66" height="28" />
-        <span>studio</span>
-      </a>
-      <nav aria-label="Main navigation">
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a class="nav-github" href={studio.github} target="_blank" rel="noopener noreferrer">GitHub<Arrow /><span class="sr-only"> (opens in a new tab)</span></a>
-      </nav>
-    </header>
+    <SiteHeader page="home" />
 
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
         <p class="eyebrow"><span class="small-cross" aria-hidden="true">✳</span> An independent digital studio</p>
         <div class="hero-grid">
-          <h1 id="hero-title">Good tools.<br /><span>Better days.</span></h1>
+          <h1 id="hero-title">One thing.<br /><span>Done well.</span></h1>
           <div class="hero-intro">
-            <p>Thoughtful tools and useful ideas for the way you browse, write, and think.</p>
+            <p>Small tools for real needs. Each one does one job, shaped by everyday use and refined with care.</p>
             <a class="explore-link" href="#projects">Explore our projects <span class="circle-arrow"><Arrow direction="down" /></span></a>
           </div>
         </div>
-        <div class="hero-footnote" aria-hidden="true"><span>Small by design. Useful by nature.</span><span>Browse · Write · Discover</span></div>
+        <div class="hero-footnote"><span>Focus is the feature.</span><span>Browse · Write · Discover</span></div>
       </section>
 
       <section class="projects-section" id="projects" aria-labelledby="projects-title">
         <div class="section-heading">
           <h2 id="projects-title">Our projects <span class="project-count">{String(projects.length).padStart(2, '0')}</span></h2>
-          <p>A few things we're putting into the world.</p>
+          <p>Different jobs. The same focus.</p>
         </div>
         <div class="project-grid">
           {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
         </div>
-        <p class="projects-note"><span class="note-line" aria-hidden="true"></span> A growing collection. More to come.</p>
       </section>
+
+      <aside class="naming-note" aria-labelledby="naming-title">
+        <span class="naming-initial" aria-hidden="true">Z</span>
+        <div>
+          <h2 id="naming-title">About that Z…</h2>
+          <p>Naming products is hard. So most of mine start with Z. A small shortcut, leaving more time to get the tools right.</p>
+        </div>
+      </aside>
 
       <section class="about-section" id="about" aria-labelledby="about-title">
         <div class="about-heading">
-          <p class="eyebrow">The studio</p>
-          <h2 id="about-title">Made with care.<br />Made to be used.</h2>
+          <p class="eyebrow">The person behind z08</p>
+          <h2 id="about-title">Hi, I’m Bear.</h2>
+          <p class="about-intro">I make the tools<br />I wish I could find.</p>
         </div>
         <div class="about-copy">
-          <p>z08 studio is an independent home for tools and ideas that make everyday life a little easier.</p>
-          <p>Our projects start with things we use and problems we run into. We keep them focused, pay attention to the details, and make them better over time.</p>
-          <a class="text-link" href={studio.github} target="_blank" rel="noopener noreferrer">Find us on GitHub <Arrow /><span class="sr-only"> (opens in a new tab)</span></a>
+          <p>These projects started with things I needed to do and tools that never quite fit. So I built my own.</p>
+          <p>I use them, notice the rough edges, and keep working on the details. I hope you find them useful, too.</p>
+          <a class="text-link" href="/about/">A little about me <Arrow direction="right" /></a>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="footer-brand"><a class="wordmark" href="#top" aria-label="z08 studio, back to top"><img src="/images/z08-black.svg" alt="" width="54" height="23" /><span>studio</span></a><span class="copyright">© {year} z08 studio</span></div>
-      <a class="back-to-top" href="#top">Back to top <Arrow direction="up" /></a>
-    </footer>
+    <SiteFooter />
   </div>
 </Layout>

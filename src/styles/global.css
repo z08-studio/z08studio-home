@@ -40,6 +40,7 @@
   .site-header nav { display: flex; align-items: center; gap: 34px; }
   .site-header nav a { display: inline-flex; align-items: center; min-height: 44px; gap: 6px; font-size: .875rem; }
   .site-header nav a:hover { color: var(--blue); }
+  .site-header nav a[aria-current='page'] { color: var(--blue); text-decoration: underline; text-underline-offset: 6px; }
   .hero { padding-top: 66px; }
   .hero-grid { display: grid; grid-template-columns: 1.75fr 1fr; gap: 48px; align-items: end; margin-top: 27px; }
   .hero h1 { font-size: clamp(4rem, 7.7vw, 6.4rem); font-weight: 500; letter-spacing: -.065em; line-height: 1.04; }
@@ -54,6 +55,7 @@
   .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
   .about-section { display: grid; grid-template-columns: 1.15fr 1fr; gap: 80px; padding: 56px; background: #f5f7fb; border: 1px solid #edf0f5; border-radius: 10px; margin-top: 64px; }
   .about-heading h2 { font-size: clamp(1.8rem, 3vw, 2.625rem); font-weight: 500; line-height: 1.2; letter-spacing: -.045em; margin-top: 22px; }
+  .about-intro { margin-top: 16px; font-size: 1.125rem; line-height: 1.6; color: var(--muted); }
   .about-copy p { max-width: 425px; color: var(--muted); line-height: 1.8; }
   .about-copy p + p { margin-top: 16px; }
   .about-copy .text-link { margin-top: 24px; }
@@ -81,7 +83,7 @@
   .project-meta .arrow { opacity: 0; transform: translate(-4px, 4px); transition: opacity .2s, transform .2s; }
   .project-icon { position: absolute; left: 50%; top: 48%; transform: translate(-50%, -50%); object-fit: contain; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
   .project-icon--zdraft { border-radius: 24%; filter: drop-shadow(0 12px 10px #14244518); }
-  .project-icon--this-week-in-obsidian { clip-path: circle(31.5% at 50% 50%); }
+  .project-icon--this-week-in-obsidian { border-radius: 24%; filter: drop-shadow(0 12px 10px #21124214); }
   .project-category { margin-top: auto; font-size: .75rem; color: #514e5d; letter-spacing: .075em; text-transform: uppercase; }
   .project-copy { display: flex; flex: 1; flex-direction: column; padding: 24px 1px 0; }
   .project h3 { font-size: 1.25rem; font-weight: 550; line-height: 1.4; letter-spacing: -.035em; }
@@ -94,8 +96,23 @@
   .project-link:hover .project-icon { transform: translate(-50%, calc(-50% - 5px)) rotate(-3deg); }
   .project-link:hover .project-meta .arrow, .project-link:focus-visible .project-meta .arrow { opacity: 1; transform: none; }
   .project-link:hover .text-link .arrow { transform: translate(2px, -2px); }
-  .projects-note { display: flex; gap: 13px; align-items: center; margin-top: 39px; font-size: .75rem; color: var(--muted); }
-  .note-line { width: 25px; height: 1px; background: #a7afbf; }
+  .naming-note { display: flex; align-items: center; gap: 24px; border-top: 1px solid var(--line); margin-top: 48px; padding-top: 30px; }
+  .naming-initial { flex: none; color: var(--blue); font-size: 3.5rem; line-height: 1; font-weight: 500; letter-spacing: -.06em; }
+  .naming-note h2 { font-size: .9375rem; font-weight: 500; }
+  .naming-note p { margin-top: 5px; font-size: .875rem; color: var(--muted); line-height: 1.75; max-width: 760px; }
+  .author-page { max-width: 720px; margin: 72px auto 0; }
+  .author-heading { padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .author-heading h1 { font-size: clamp(3.5rem, 7vw, 5.25rem); font-weight: 500; line-height: 1.12; letter-spacing: -.06em; margin-top: 28px; }
+  .author-lead { font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.4; letter-spacing: -.03em; margin-top: 22px; }
+  .author-lead span { color: var(--blue); }
+  .author-story { margin-top: 38px; font-size: 1.0625rem; line-height: 1.9; color: #4d535d; }
+  .author-story > p + p { margin-top: 22px; }
+  .author-story h2 { color: var(--ink); font-size: 1.25rem; font-weight: 550; line-height: 1.5; letter-spacing: -.03em; margin: 40px 0 15px; }
+  .author-story .author-closing { margin-top: 36px; }
+  .author-story .author-signature { color: var(--ink); font-size: 1.5rem; letter-spacing: -.035em; margin-top: 24px; }
+  .author-story .text-link { margin-top: 6px; color: var(--blue); }
+  .author-projects-link { display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); padding-block: 28px; margin-top: 46px; font-size: 1rem; }
+  .author-projects-link:hover { color: var(--blue); }
   .footer-brand .wordmark span { font-size: 1.125rem; }
   .not-found { padding-block: 60px; }
   .not-found .eyebrow { margin-top: 100px; color: var(--muted); }
@@ -142,7 +159,8 @@
     .project-description { font-size: 1rem; max-width: 100%; margin-bottom: 16px; }
     .text-link { min-height: 44px; font-size: .875rem; }
     .project-meta .arrow { opacity: 1; transform: none; }
-    .projects-note { margin-top: 28px; }
+    .naming-note { align-items: start; gap: 18px; margin-top: 30px; padding-top: 26px; }
+    .naming-initial { font-size: 2.75rem; }
     .about-section { grid-template-columns: 1fr; gap: 24px; padding: 30px 25px; margin-top: 42px; }
     .about-heading h2 { font-size: 2rem; margin-top: 16px; }
     .about-copy p { font-size: 1rem; }
@@ -150,6 +168,13 @@
     .site-footer { align-items: end; padding-block: 24px; margin-top: 15px; }
     .footer-brand { flex-direction: column; align-items: start; gap: 5px; }
     .back-to-top { margin-bottom: -10px; }
+    .author-page { margin-top: 42px; }
+    .author-heading { padding-bottom: 28px; }
+    .author-heading h1 { font-size: clamp(2.5rem, 11vw, 4rem); margin-top: 24px; }
+    .author-lead { font-size: 1.5rem; margin-top: 18px; }
+    .author-story { font-size: 1rem; margin-top: 28px; }
+    .author-story h2 { margin-top: 32px; }
+    .author-projects-link { margin-top: 32px; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }

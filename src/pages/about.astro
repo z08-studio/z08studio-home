@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Arrow from '../components/Arrow.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { studio } from '../data/studio';
+---
+<Layout title="About Bear Wang — z08 studio" description="I'm Bear Wang, the maker behind z08 studio. I build small, focused tools for the things I need to do, and share them in the hope that you'll find them useful too.">
+  <div class="site-shell" id="top">
+    <SiteHeader page="about" />
+    <main id="main" class="author-page">
+      <header class="author-heading">
+        <p class="eyebrow"><span class="small-cross" aria-hidden="true">✳</span> A note from the maker</p>
+        <h1>Hi, I’m Bear.</h1>
+        <p class="author-lead">I make the tools<br /><span>I wish I could find.</span></p>
+      </header>
+
+      <div class="author-story">
+        <p>I’m {studio.author.name}, the person behind z08 studio. I started this studio because I kept running into small tasks that were surprisingly hard to do well with the tools available.</p>
+        <p>A simple job would lead me to an app crowded with features, settings, and things I didn’t need. I wanted a tool that understood the job and stayed focused on it. When I couldn’t find one, I built it.</p>
+
+        <h2>One tool. One job.</h2>
+        <p>I care about focus, all the way down to the details. Each tool should do one clear job really well, and make it feel easy. Every feature has to earn its place by helping with that job.</p>
+        <p>Every project here starts with a situation I’ve experienced firsthand. I use the tools in my own day, notice what gets in the way, and keep refining them. That everyday experience shapes what I build and how it works.</p>
+
+        <h2>And yes, most names start with Z.</h2>
+        <p>Ztab. Zdraft. There’s a pattern. Naming products is surprisingly hard, so Z became my small shortcut. It leaves a little more time for the part I enjoy: making the tools useful.</p>
+
+        <p class="author-closing">I’m sharing these projects because something that helps me might help you, too. I hope you enjoy using them.</p>
+        <p class="author-signature">Bear</p>
+        <a class="text-link" href={studio.author.github} target="_blank" rel="noopener noreferrer">Find me on GitHub <Arrow /><span class="sr-only"> (opens in a new tab)</span></a>
+      </div>
+
+      <a class="author-projects-link" href="/#projects"><span>See what I’m making</span><Arrow direction="right" /></a>
+    </main>
+    <SiteFooter />
+  </div>
+</Layout>

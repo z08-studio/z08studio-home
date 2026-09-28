@@ -3,10 +3,14 @@ import newsletterAvatar from '../assets/this-week-in-obsidian.png';
 
 export const studio = {
   name: 'z08 studio',
-  title: 'z08 studio — Good tools. Better days.',
+  title: 'z08 studio — One thing. Done well.',
   description:
-    'An independent studio making thoughtful tools and sharing useful ideas for the way you browse, write, and think. Discover Ztab, Zdraft, and This Week in Obsidian.',
+    'Small, focused tools by Bear Wang. One tool, one job, done well. Discover Ztab, Zdraft, and This Week in Obsidian.',
   github: 'https://github.com/z08-studio',
+  author: {
+    name: 'Bear Wang',
+    github: 'https://github.com/boundless-forest',
+  },
 };
 
 export interface Project {
@@ -30,7 +34,7 @@ export const projects: Project[] = [
     category: 'Chrome extension',
     tagline: 'A home for every tab.',
     description:
-      'Bring your Chrome windows together. Organize open tabs, keep your favorites close, and pick up where you left off.',
+      'Keep your tabs in order across Chrome windows. Find the page you need and get back to what you were doing.',
     href: 'https://chromewebstore.google.com/detail/fakbifeeblnopdhicpmhhmcdhmefphjp',
     linkLabel: 'Meet Ztab',
     image: '/images/ztab.svg',
@@ -41,9 +45,9 @@ export const projects: Project[] = [
     id: 'zdraft',
     name: 'Zdraft',
     category: 'Mac app',
-    tagline: 'From a thought to the right words.',
+    tagline: 'Your thoughts, ready to send.',
     description:
-      'A quiet place for your next draft. Write, polish, and translate your thoughts into messages that are ready to send.',
+      'Turn rough thoughts into messages you’re ready to send. A focused writing space for drafting, polishing, and translating.',
     href: 'https://zdraft.app',
     linkLabel: 'Meet Zdraft',
     image: '/images/zdraft.svg',
@@ -56,11 +60,11 @@ export const projects: Project[] = [
     category: 'Weekly newsletter',
     tagline: 'A little discovery, every Tuesday.',
     description:
-      'The latest from the Obsidian community. Discover useful plugins, thoughtful workflows, and ideas worth keeping.',
+      'Keep up with Obsidian in one weekly read. Useful plugins, practical workflows, and discoveries from the community.',
     href: 'https://thisweekinobsidian.substack.com',
     linkLabel: 'Read the newsletter',
     image: newsletterAvatar,
     background: '#f0f1f3',
-    imageWidth: 210,
+    imageWidth: 130,
   },
 ];
