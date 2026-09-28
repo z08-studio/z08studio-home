@@ -1,0 +1,29 @@
+---
+import type { Project } from '../data/studio';
+import { Image } from 'astro:assets';
+import Arrow from './Arrow.astro';
+interface Props { project: Project; index: number; }
+const { project, index } = Astro.props;
+---
+<article class="project" aria-labelledby={`${project.id}-name`}>
+  <a class="project-link" href={project.href} target="_blank" rel="noopener noreferrer" aria-labelledby={`${project.id}-name ${project.id}-action`}>
+    <div class="project-visual" style={`--project-background: ${project.background}`}>
+      <div class="project-meta" aria-hidden="true">
+        <span>{String(index + 1).padStart(2, '0')}</span>
+        <Arrow />
+      </div>
+      {typeof project.image === 'string' ? (
+        <img class:list={['project-icon', `project-icon--${project.id}`]} src={project.image} alt="" width={project.imageWidth} height={project.imageWidth} decoding="async" />
+      ) : (
+        <Image class:list={['project-icon', `project-icon--${project.id}`]} src={project.image} alt="" width={project.imageWidth} height={project.imageWidth} densities={[1, 2]} format="webp" loading="eager" />
+      )}
+      <span class="project-category">{project.category}</span>
+    </div>
+    <div class="project-copy">
+      <h3 id={`${project.id}-name`}>{project.name}</h3>
+      <p class="project-tagline">{project.tagline}</p>
+      <p class="project-description">{project.description}</p>
+      <span class="text-link" id={`${project.id}-action`}>{project.linkLabel}<Arrow direction="right" /><span class="sr-only"> (opens in a new tab)</span></span>
+    </div>
+  </a>
+</article>
