@@ -1,46 +1,47 @@
 # z08 studio
 
-z08 studio 的英文官网，展示 Ztab、Zdraft 和 This Week in Obsidian。
+The English-first website for z08 studio: small, focused tools that do one thing well. It brings together Ztab, Zdraft, and This Week in Obsidian, with a short introduction to their maker, Bear Wang.
 
-品牌主张是 **One thing. Done well.**：一件工具专注一个独立任务，来源于真实使用场景，并持续打磨。首页介绍项目和 Z 系列命名的由来；`/about/` 用 Bear Wang 的第一人称介绍创作初衷。
+Built with Astro, static HTML, and native CSS. Fonts and images are self-hosted. No database or client-side framework is required. Optional Google Analytics loads only after visitor consent.
 
-使用 Astro 构建静态 HTML，配合原生 CSS，不使用客户端框架。字体和图片均自行托管，不需要数据库或外部 CMS；仅在访客同意后加载 Google Analytics。
+## Development
 
-## 本地开发
-
-需要 Node.js 24（见 `.node-version`）和 pnpm 11.20.0。
+Use Node.js 24 (see `.node-version`) and pnpm 11.20.0.
 
 ```sh
 pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-默认地址：<http://localhost:4321>。
+The development server runs at <http://127.0.0.1:4321>.
 
 ```sh
-pnpm check    # Astro 和 TypeScript 检查
-pnpm build    # 生成 dist/
-pnpm preview  # 预览构建产物
+pnpm check    # Check Astro and TypeScript
+pnpm build    # Build the static site in dist/
+pnpm preview  # Preview the production build
 ```
 
-## 日常维护
+## Content and maintenance
 
-| 文件 | 内容 |
+Use English for documentation, code comments, UI copy, and contribution discussions.
+
+| File | Purpose |
 | --- | --- |
-| `src/data/studio.ts` | 网站信息、项目名称、描述、链接、图标、展示顺序 |
-| `src/pages/index.astro` | 首页介绍和工作室文案 |
-| `src/pages/about.astro` | 作者介绍、工具理念和命名由来 |
-| `src/components/SiteHeader.astro`、`SiteFooter.astro` | 页面共用的导航和页脚 |
-| `src/components/ProjectCard.astro` | 所有项目共用的卡片 |
-| `src/data/analytics.ts` | GA4 公开统计 ID 和允许采集的正式域名 |
-| `src/components/Analytics.astro`、`src/scripts/analytics.ts` | 统计 Cookie 选择与按需加载 |
-| `src/pages/privacy.astro` | 隐私说明 |
-| `src/styles/global.css` | 颜色、字体、布局和移动端样式 |
-| `public/images/` | SVG 标志 |
-| `src/assets/` | 需要在构建时压缩的位图 |
-| `astro.config.mjs` | 正式域名 |
+| `src/data/studio.ts` | Studio details, project descriptions, links, icons, and order |
+| `src/pages/index.astro` | Homepage |
+| `src/pages/about.astro` | Maker's story |
+| `src/pages/privacy.astro` | Analytics and privacy notice |
+| `src/components/SiteHeader.astro`, `SiteFooter.astro` | Shared navigation and footer |
+| `src/components/ProjectCard.astro` | Project card |
+| `src/data/analytics.ts` | Public analytics configuration |
+| `src/components/Analytics.astro`, `src/scripts/analytics.ts` | Consent controls and analytics loading |
+| `src/styles/global.css` | Layout, typography, colors, and responsive styles |
+| `public/images/` | SVG assets |
+| `src/assets/` | Images optimized during the build |
+| `astro.config.mjs` | Canonical website origin |
+| `deploy/` | Vultr/Docker hosting configuration and instructions |
 
-新增项目时，在 `src/data/studio.ts` 的 `projects` 数组添加一项即可。数组顺序决定首页顺序，网格自动更新。链接必须使用 `https://`，每个项目只写一段核心介绍，无需另加副标语。
+To add a project, add an entry to `projects` in `src/data/studio.ts`. Array order determines display order. Use an HTTPS destination and one clear description.
 
 ```ts
 {
@@ -56,48 +57,39 @@ pnpm preview  # 预览构建产物
 },
 ```
 
-PNG/JPEG 放入 `src/assets/`，通过 `import` 传给 `image` 字段；Astro 会生成 1×/2× WebP，避免直接发送高分辨率原图。SVG 可以直接放入 `public/images/`。
+Import PNG/JPEG images from `src/assets/` and pass them to `image`; Astro generates optimized WebP variants. Put SVG files in `public/images/`.
 
-## Google Analytics
+When adding a page, update `src/pages/sitemap.xml.ts`. When changing the production domain, update `astro.config.mjs`, `public/robots.txt`, `src/data/analytics.ts`, the gateway configuration, and the Analytics web stream.
 
-已在 **Bear Wang** 账号（`404959737`）下创建独立的 **z08 studio** GA4 属性（`556189495`），报告时区为中国时间（UTC+8），报告币种为 USD。
+## Analytics
 
-- Web 数据流：**z08 studio website**（`15859100586`），网址 `https://z08studio.com`。
-- Measurement ID：`G-BWEPB626XY`，在 `src/data/analytics.ts` 维护。这是公开标识，不是密钥，Cloudflare 不需要额外配置环境变量。
-- 增强型衡量仅启用页面浏览、滚动和外链点击。页内锚点跳转不会新增页面浏览；没有额外手写重复的 `page_view` 或点击事件。
-- 仅 HTTPS 的 `z08studio.com` 和 `www.z08studio.com` 加载统计，本地开发、localhost 预览和 `pages.dev` 预览不发送数据。
-- 首次访问提供同等样式的同意/拒绝按钮；同意前不请求 Google 脚本，也不发送无 Cookie 的统计请求。选择保留 180 天，可通过页脚 **Cookie settings** 修改。
-- 关闭广告存储、广告个性化和 Google signals。撤回同意后停止后续采集并清理本站的 GA Cookie，不删除已经收到的数据。
+Copy `.env.example` to `.env` and set `PUBLIC_GOOGLE_ANALYTICS_ID` to your GA4 web stream measurement ID before building. With no ID configured, analytics and its cookie prompt are disabled.
 
-查看数据：[Analytics 属性首页](https://analytics.google.com/analytics/web/#/a404959737p556189495/reports/intelligenthome)。**Realtime** 用于上线验证，流量来源和页面报告用于日常查看；项目跳转由增强型衡量的 `click` 事件及 `link_url` / `link_domain` 参数区分。
+The measurement ID is a public browser identifier, not a credential. Its deployment-specific value stays out of source control. Never put API keys or other secrets in `PUBLIC_` variables: Astro includes them in the browser build.
 
-发布到正式域名后，打开网站并允许统计，再在 Realtime 确认访问及项目点击。网站尚未发布时后台的“尚未收到数据”提示是正常状态；代码测试不代表线上采集已经验证。拒绝统计或使用拦截器的访问不会进入报表。
+Analytics runs only on the HTTPS production hostnames listed in `src/data/analytics.ts`. Development, local previews, and other hostnames do not collect data. Visitors can accept or decline, and can change their choice using **Cookie settings** in the footer. The choice lasts 180 days. Before consent, no Google script or analytics request is sent. Withdrawing consent stops collection and removes the site's Analytics cookies.
 
-参考：[Google 的同意模式接入说明](https://developers.google.com/tag-platform/security/guides/consent)、[外链点击统计](https://support.google.com/analytics/answer/13566436)。
+In the GA4 web stream, enable page views, scrolls, and outbound clicks. Disable history-based page views for this static site so anchor links are not counted as new pages. Site search, form, video, and download measurement are unnecessary for the current pages. Advertising storage, Google signals, and advertising personalization are disabled in the integration.
 
-## Cloudflare Pages 部署
+After deployment, allow analytics in a browser and confirm a visit in **Realtime**. Project links use the enhanced-measurement `click` event with `link_url` and `link_domain`. Visitors who decline or block analytics do not appear in reports.
 
-项目已准备好部署，创建仓库或构建成功不代表域名已经上线。
+References: [Google consent mode](https://developers.google.com/tag-platform/security/guides/consent), [outbound click measurement](https://support.google.com/analytics/answer/13566436).
 
-1. 在 Cloudflare 的 Workers & Pages 中创建 Pages 项目，连接 GitHub 仓库 `z08-studio/z08studio-home`。
-2. 生产分支选 `main`；先合并首页 PR，再建立生产部署。
-3. Framework preset 选 **Astro**，构建命令为 `pnpm build`，输出目录为 `dist`，根目录留空。
-4. 构建环境变量设为 `NODE_VERSION=24`、`PNPM_VERSION=11.20.0`。
-5. 先检查生成的 `pages.dev` 地址，再在该 Pages 项目的 **Custom domains** 添加 `z08studio.com`，按 Cloudflare 提示验证 DNS 和 HTTPS。
-6. 如需 `www.z08studio.com`，也在 Custom domains 中添加，并设置到根域名的重定向。
+## Deployment
 
-无需服务器适配器、运行时密钥或 Cloudflare API token。连接 GitHub 后，后续合并到 `main` 的变更由 Cloudflare 自动构建部署；PR 可使用 Cloudflare 的预览部署。
+The site is hosted on a Vultr server using Docker and the server's existing Caddy HTTPS gateway. A small, isolated static-file service serves versioned builds. Deployments switch an atomic `current` symlink and keep previous releases for rollback.
 
-`public/_headers` 会随静态产物发布并设置基础安全响应头和哈希资源缓存。`404.astro` 提供缺失页面；robots、sitemap 和 canonical 使用正式域名。增加页面时同步维护 `src/pages/sitemap.xml.ts`；如更换域名，同时更新 `astro.config.mjs`、`public/robots.txt`、`src/data/analytics.ts` 和 Analytics 中的 Web 数据流。
+See [the deployment guide](deploy/README.md) for setup, updates, verification, and rollback. Hostnames, SSH targets, gateway paths, and Docker network names belong in the ignored `.deploy.env` file. Only public example configuration is committed.
 
-参考：[Cloudflare Astro 部署文档](https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/)、[自定义域名文档](https://developers.cloudflare.com/pages/configuration/custom-domains/)。
+## Repository hygiene
 
-## 品牌素材
+Keep credentials, private account identifiers, infrastructure addresses, local paths, deployment receipts, and generated output out of commits. `.env` and `.deploy.env` are ignored; their example files contain placeholders only. Use GitHub's no-reply commit email when contributing. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-- z08：现有 Final D 品牌包，沿用黑、白与 `#143EAB`。
-- Ztab：项目中的 `store-listing/source/icon.svg`。
-- Zdraft：项目中的 `Design/zdraft-icon.svg`。
-- This Week in Obsidian：2026-09-28 从 [Substack 主页](https://thisweekinobsidian.substack.com/) 获取的最新紫色几何标志，与用户提供的参考一致；[原图](https://substack-post-media.s3.amazonaws.com/public/images/33967bc8-7d58-4748-9429-5743686ca954_1254x1254.png)。
-- Inter：由 `@fontsource-variable/inter` 自行托管，使用 [SIL Open Font License](https://github.com/rsms/inter/blob/master/LICENSE.txt)。
+## Assets
 
-当前产品链接来自对应项目的官方资料。不展示容易过时的用户数、价格或版本号。
+- z08 studio: the existing studio wordmark and blue `#143EAB` palette.
+- Ztab and Zdraft: official product icons.
+- This Week in Obsidian: current artwork from the [official newsletter](https://thisweekinobsidian.substack.com/).
+- Inter: self-hosted through `@fontsource-variable/inter`, under the [SIL Open Font License](https://github.com/rsms/inter/blob/master/LICENSE.txt).
+
+Product names and brand artwork identify their respective projects. Do not assume that publishing this repository grants trademark rights.
