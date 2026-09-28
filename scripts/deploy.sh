@@ -70,7 +70,8 @@ for file in config/Caddyfile compose.yaml runtime.env; do
   if [[ -f "$root/$file" ]]; then cp "$root/$file" "$receipt/$(basename "$file")"; fi
 done
 
-compose() { docker compose --env-file "$root/runtime.env" -f "$root/compose.yaml" "$@"; }
+# Compose must not consume the remote shell script from SSH's standard input.
+compose() { docker compose --env-file "$root/runtime.env" -f "$root/compose.yaml" "$@" </dev/null; }
 rollback() {
   trap - ERR
   for file in config/Caddyfile compose.yaml runtime.env; do
