@@ -93,3 +93,7 @@ Keep credentials, private account identifiers, infrastructure addresses, local p
 - Inter: self-hosted through `@fontsource-variable/inter`, under the [SIL Open Font License](https://github.com/rsms/inter/blob/master/LICENSE.txt).
 
 Product names and brand artwork identify their respective projects. Do not assume that publishing this repository grants trademark rights.
+
+## License
+
+Website source code and documentation are available under the [MIT License](LICENSE). Brand artwork and third-party fonts retain their separate rights; see [ASSETS.md](ASSETS.md). Replace the studio and product branding when adapting the website for another project.
