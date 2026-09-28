@@ -1,0 +1,16 @@
+---
+const enabled = import.meta.env.PROD;
+---
+{enabled && (
+  <section class="analytics-consent" id="analytics-consent" aria-label="Analytics cookies" hidden>
+    <p>Allow Google Analytics cookies to help improve this site? <a href="/privacy/">Privacy</a></p>
+    <div class="consent-actions">
+      <button type="button" data-consent="denied">No thanks</button>
+      <button type="button" data-consent="granted">Allow analytics</button>
+    </div>
+  </section>
+)}
+<script>
+  import { initAnalytics } from '../scripts/analytics';
+  initAnalytics();
+</script>

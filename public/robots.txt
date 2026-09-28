@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://z08studio.com/sitemap.xml
