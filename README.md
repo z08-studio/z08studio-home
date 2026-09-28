@@ -37,14 +37,13 @@ pnpm preview  # 预览构建产物
 | `src/assets/` | 需要在构建时压缩的位图 |
 | `astro.config.mjs` | 正式域名 |
 
-新增项目时，在 `src/data/studio.ts` 的 `projects` 数组添加一项即可。数组顺序决定首页顺序，项目数量和网格自动更新。链接必须使用 `https://`，文案保持简洁。
+新增项目时，在 `src/data/studio.ts` 的 `projects` 数组添加一项即可。数组顺序决定首页顺序，网格自动更新。链接必须使用 `https://`，每个项目只写一段核心介绍，无需另加副标语。
 
 ```ts
 {
   id: 'project-slug',
   name: 'Project name',
   category: 'Web app',
-  tagline: 'One short sentence.',
   description: 'What the project does and who it helps.',
   href: 'https://example.com',
   linkLabel: 'Explore the project',

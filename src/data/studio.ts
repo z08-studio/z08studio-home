@@ -17,7 +17,6 @@ export interface Project {
   id: string;
   name: string;
   category: string;
-  tagline: string;
   description: string;
   href: `https://${string}`;
   linkLabel: string;
@@ -32,7 +31,6 @@ export const projects: Project[] = [
     id: 'ztab',
     name: 'Ztab',
     category: 'Chrome extension',
-    tagline: 'A home for every tab.',
     description:
       'Keep your tabs in order across Chrome windows. Find the page you need and get back to what you were doing.',
     href: 'https://chromewebstore.google.com/detail/fakbifeeblnopdhicpmhhmcdhmefphjp',
@@ -45,7 +43,6 @@ export const projects: Project[] = [
     id: 'zdraft',
     name: 'Zdraft',
     category: 'Mac app',
-    tagline: 'Your thoughts, ready to send.',
     description:
       'Turn rough thoughts into messages you’re ready to send. A focused writing space for drafting, polishing, and translating.',
     href: 'https://zdraft.app',
@@ -58,7 +55,6 @@ export const projects: Project[] = [
     id: 'this-week-in-obsidian',
     name: 'This Week in Obsidian',
     category: 'Weekly newsletter',
-    tagline: 'A little discovery, every Tuesday.',
     description:
       'Keep up with Obsidian in one weekly read. Useful plugins, practical workflows, and discoveries from the community.',
     href: 'https://thisweekinobsidian.substack.com',

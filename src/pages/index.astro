@@ -12,7 +12,6 @@ import { projects } from '../data/studio';
 
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
-        <p class="eyebrow"><span class="small-cross" aria-hidden="true">✳</span> An independent digital studio</p>
         <div class="hero-grid">
           <h1 id="hero-title">One thing.<br /><span>Done well.</span></h1>
           <div class="hero-intro">
@@ -20,30 +19,24 @@ import { projects } from '../data/studio';
             <a class="explore-link" href="#projects">Explore our projects <span class="circle-arrow"><Arrow direction="down" /></span></a>
           </div>
         </div>
-        <div class="hero-footnote"><span>Focus is the feature.</span><span>Browse · Write · Discover</span></div>
       </section>
 
       <section class="projects-section" id="projects" aria-labelledby="projects-title">
         <div class="section-heading">
-          <h2 id="projects-title">Our projects <span class="project-count">{String(projects.length).padStart(2, '0')}</span></h2>
-          <p>Different jobs. The same focus.</p>
+          <h2 id="projects-title">Our projects</h2>
         </div>
         <div class="project-grid">
-          {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+          {projects.map(project => <ProjectCard project={project} />)}
         </div>
       </section>
 
-      <aside class="naming-note" aria-labelledby="naming-title">
+      <aside class="naming-note" aria-label="About the Z names">
         <span class="naming-initial" aria-hidden="true">Z</span>
-        <div>
-          <h2 id="naming-title">About that Z…</h2>
-          <p>Naming products is hard. So most of mine start with Z. A small shortcut, leaving more time to get the tools right.</p>
-        </div>
+        <p>Naming things is hard. That’s why most of my tools start with Z.</p>
       </aside>
 
       <section class="about-section" id="about" aria-labelledby="about-title">
         <div class="about-heading">
-          <p class="eyebrow">The person behind z08</p>
           <h2 id="about-title">Hi, I’m Bear.</h2>
           <p class="about-intro">I make the tools<br />I wish I could find.</p>
         </div>
