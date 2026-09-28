@@ -2,6 +2,7 @@
 import '@fontsource-variable/inter/wght.css';
 import '../styles/global.css';
 import { studio } from '../data/studio';
+import Analytics from '../components/Analytics.astro';
 interface Props { title?: string; description?: string; noindex?: boolean; }
 const { title = studio.title, description = studio.description, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -31,5 +32,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <slot />
+    <Analytics />
   </body>
 </html>

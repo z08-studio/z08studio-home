@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<Layout title="Privacy — z08 studio" description="How z08 studio uses optional website analytics and how to change your cookie choice.">
+  <div class="site-shell" id="top">
+    <SiteHeader page="privacy" />
+    <main id="main" class="author-page privacy-page">
+      <header class="author-heading"><h1>Privacy</h1></header>
+      <div class="author-story">
+        <p>This notice covers z08studio.com, made by Bear Wang. The products linked from this site have their own privacy policies.</p>
+        <h2>Optional analytics</h2>
+        <p>If you allow analytics cookies, we use Google Analytics to understand page visits, traffic sources, approximate location, device and browser information, scrolling, and clicks on external links. Analytics cookies help distinguish visits and returning visitors. We do not enable Google signals or advertising personalisation.</p>
+        <p>Google receives analytics data only after you allow it. You can decline and still use the entire site. We keep your cookie choice in this browser for six months.</p>
+        <h2>Your choice</h2>
+        <p>Use <strong>Cookie settings</strong> in the footer to change your choice. Withdrawing consent stops further analytics collection in this browser and removes this site's Google Analytics cookies. It does not erase data already collected.</p>
+        <p>For information about Google's processing, see <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites that use its services</a>.</p>
+        <h2>Hosting and contact</h2>
+        <p>The hosting provider processes network information, such as IP addresses, to deliver and protect the site. This is separate from optional analytics.</p>
+        <p>For questions, contact <a href="https://github.com/boundless-forest">Bear Wang on GitHub</a>.</p>
+      </div>
+    </main>
+    <SiteFooter />
+  </div>
+</Layout>
