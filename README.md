@@ -61,6 +61,12 @@ Import PNG/JPEG images from `src/assets/` and pass them to `image`; Astro genera
 
 When adding a page, update `src/pages/sitemap.xml.ts`. When changing the production domain, update `astro.config.mjs`, `public/robots.txt`, `src/data/analytics.ts`, the gateway configuration, and the Analytics web stream.
 
+## Design explorations
+
+Open `/explore/` in the local preview to compare Editorial, Workbench, and Signal. The overview includes desktop and mobile miniatures; each full-size design has a switcher for moving between versions and the current homepage.
+
+The studies share project data from `src/data/studio.ts`, with isolated layouts and styles under `src/pages/explore/`, `src/components/explore/`, and `src/styles/explore/`. Preview routes disable analytics, declare `noindex`, and are excluded from the sitemap.
+
 ## Analytics
 
 Copy `.env.example` to `.env` and set `PUBLIC_GOOGLE_ANALYTICS_ID` to your GA4 web stream measurement ID before building. With no ID configured, analytics and its cookie prompt are disabled.

@@ -1,0 +1,51 @@
+---
+import ConceptLayout from '../../layouts/ConceptLayout.astro';
+import Brand from '../../components/explore/Brand.astro';
+import ProductIcon from '../../components/explore/ProductIcon.astro';
+import Arrow from '../../components/Arrow.astro';
+import { projects, studio } from '../../data/studio';
+import '../../styles/explore/signal.css';
+---
+<ConceptLayout concept="signal">
+  <div class="signal-shell" id="top">
+    <header class="signal-header"><Brand /><nav class="concept-nav" aria-label="Main navigation"><a href="#projects">Projects</a><a href="#about">About</a><a class="nav-external" href={studio.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)">GitHub <Arrow /></a></nav></header>
+    <main id="main">
+      <section class="signal-hero" aria-labelledby="signal-title">
+        <div class="signal-hero-copy"><h1 id="signal-title">One thing.<br /><span>Done well.</span></h1><p>Small tools for real needs. Each one does one job, shaped by everyday use and refined with care.</p><a class="signal-button" href="#projects">Explore our projects <Arrow direction="down" /></a></div>
+        <div class="signal-monogram" aria-hidden="true"><span class="signal-cross signal-cross-a">+</span><svg viewBox="0 0 320 320" fill="none"><path d="M40 53H280V108L126 211H280V267H40V212L194 109H40V53Z" fill="currentColor" /></svg><span class="signal-cross signal-cross-b">+</span></div>
+      </section>
+      <section class="signal-projects" id="projects" aria-labelledby="signal-projects-title">
+        <h2 id="signal-projects-title">Our projects</h2>
+        <div class="signal-focus">
+          <div class="signal-project-list">
+            {projects.map((project, index) => <details class="signal-project" name="signal-projects" data-project={project.id} open={index === 0}>
+              <summary><span>{project.name}</span><span class="signal-toggle" aria-hidden="true">+</span></summary>
+              <div class="signal-project-body"><p class="signal-category">{project.category}</p><p>{project.description}</p><a href={project.href} target="_blank" rel="noopener noreferrer" aria-label={`${project.linkLabel} (opens in a new tab)`}>{project.linkLabel}<Arrow /></a></div>
+            </details>)}
+          </div>
+          <div class="signal-stage" aria-hidden="true">
+            <div class="signal-stage-orbit"></div>
+            {projects.map((project, index) => <div class="signal-product-preview" data-project-preview={project.id} hidden={index !== 0}><ProductIcon project={project} size={190} /><span>{project.name}</span></div>)}
+          </div>
+        </div>
+      </section>
+      <section class="signal-about" id="about" aria-labelledby="signal-about-title">
+        <div class="signal-about-heading"><h2 id="signal-about-title">Hi, I’m Bear.</h2><p>I make the tools<br />I wish I could find.</p></div>
+        <div class="signal-story"><p>These projects started with things I needed to do and tools that never quite fit. So I built my own.</p><p>I use them, notice the rough edges, and keep working on the details. I hope you find them useful, too.</p><a href={studio.author.github} target="_blank" rel="noopener noreferrer" aria-label="Find Bear on GitHub (opens in a new tab)">Find me on GitHub <Arrow /></a></div>
+      </section>
+      <aside class="signal-naming" aria-label="About the Z names"><span aria-hidden="true">Z</span><p>Naming things is hard. That’s why most of my tools start with Z.</p></aside>
+    </main>
+    <footer class="concept-footer signal-footer"><Brand /><div><span>© {new Date().getFullYear()} z08 studio</span><a href="#top">Back to top <Arrow direction="up" /></a></div></footer>
+  </div>
+<script>
+  const choices = [...document.querySelectorAll<HTMLDetailsElement>('.signal-project')];
+  const previews = [...document.querySelectorAll<HTMLElement>('[data-project-preview]')];
+  for (const choice of choices) {
+    choice.addEventListener('toggle', () => {
+      if (!choice.open) return;
+      for (const other of choices) if (other !== choice) other.open = false;
+      for (const preview of previews) preview.hidden = preview.dataset.projectPreview !== choice.dataset.project;
+    });
+  }
+</script>
+</ConceptLayout>

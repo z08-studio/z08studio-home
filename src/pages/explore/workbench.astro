@@ -1,0 +1,50 @@
+---
+import ConceptLayout from '../../layouts/ConceptLayout.astro';
+import Brand from '../../components/explore/Brand.astro';
+import ProductIcon from '../../components/explore/ProductIcon.astro';
+import Arrow from '../../components/Arrow.astro';
+import { projects, studio } from '../../data/studio';
+import '../../styles/explore/workbench.css';
+---
+<ConceptLayout concept="workbench">
+  <div class="workbench-shell" id="top">
+    <header class="workbench-header"><Brand /><nav class="concept-nav" aria-label="Main navigation"><a href="#projects">Projects</a><a href="#about">About</a><a class="nav-external" href={studio.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)">GitHub <Arrow /></a></nav></header>
+    <main id="main">
+      <section class="workbench-hero" aria-labelledby="workbench-title">
+        <div class="workbench-hero-copy">
+          <h1 id="workbench-title">One thing.<br /><span>Done well.</span></h1>
+          <p>Small tools for real needs. Each one does one job, shaped by everyday use and refined with care.</p>
+          <a class="workbench-button" href="#projects">Find your next tool <Arrow direction="right" /></a>
+        </div>
+        <div class="workbench-objects" aria-hidden="true">
+          <div class="workbench-disc"></div>
+          {projects.map((project, index) => <div class={`desk-object desk-object-${index}`}><ProductIcon project={project} size={160} /><span>{project.name}</span></div>)}
+          <span class="workbench-spark">✳</span>
+        </div>
+      </section>
+      <section class="workbench-projects" id="projects" aria-labelledby="workbench-projects-title">
+        <h2 id="workbench-projects-title">A few things I’ve made.</h2>
+        <div class="workbench-project-grid">
+          {projects.map((project, index) => <article class={`workbench-card workbench-card-${index}`}>
+            <a href={project.href} target="_blank" rel="noopener noreferrer" aria-label={`${project.name}: ${project.linkLabel} (opens in a new tab)`}>
+              <div class="workbench-card-top"><ProductIcon project={project} size={72} /><span>{project.category}</span></div>
+              <h3>{project.name}</h3><p>{project.description}</p>
+              <span class="workbench-card-link">{project.linkLabel}<span><Arrow /></span></span>
+            </a>
+          </article>)}
+        </div>
+      </section>
+      <section class="workbench-about" id="about" aria-labelledby="workbench-about-title">
+        <div class="workbench-letter">
+          <h2 id="workbench-about-title">Hi, I’m Bear.</h2>
+          <p class="workbench-about-lead">I make the tools I wish I could find.</p>
+          <p>These projects started with things I needed to do and tools that never quite fit. So I built my own.</p>
+          <p>I use them, notice the rough edges, and keep working on the details. I hope you find them useful, too.</p>
+          <a href={studio.author.github} target="_blank" rel="noopener noreferrer" aria-label="Find Bear on GitHub (opens in a new tab)">Find me on GitHub <Arrow /></a>
+        </div>
+        <aside class="workbench-naming" aria-label="About the Z names"><div aria-hidden="true">Z<span>?</span></div><p>Naming things is hard. That’s why most of my tools start with Z.</p></aside>
+      </section>
+    </main>
+    <footer class="concept-footer workbench-footer"><Brand /><div><span>© {new Date().getFullYear()} z08 studio</span><a href="#top">Back to top <Arrow direction="up" /></a></div></footer>
+  </div>
+</ConceptLayout>

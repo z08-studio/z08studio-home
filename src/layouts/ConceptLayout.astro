@@ -1,0 +1,38 @@
+---
+import '@fontsource-variable/inter/wght.css';
+import '../styles/explore/base.css';
+import { explorations, type ExplorationId } from '../data/explorations';
+interface Props { concept?: ExplorationId; title?: string; }
+const { concept, title = 'Design explorations — z08 studio' } = Astro.props;
+const design = explorations.find(item => item.id === concept);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content={design?.color || '#f6f6f4'} />
+    <meta name="description" content="Three independent homepage design explorations for z08 studio." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{design ? `${design.name} — z08 studio` : title}</title>
+    <script is:inline>
+      if (new URLSearchParams(location.search).has('embed')) document.documentElement.dataset.embed = 'true';
+    </script>
+  </head>
+  <body class={concept || 'exploration-overview'}>
+    <a class="concept-skip" href="#main">Skip to content</a>
+    <slot />
+    {concept && (
+      <nav class="design-switcher" aria-label="Design versions">
+        <a class="switcher-overview" href="/explore/" aria-label="All design explorations">↶ <span>Overview</span></a>
+        <a href="/">Current</a>
+        {explorations.map(item => (
+          <a href={`/explore/${item.id}/`} aria-current={item.id === concept ? 'page' : undefined} aria-label={`${item.number} ${item.name}`}>
+            <span class="switcher-number">{item.number}</span><span class="switcher-name">{item.name}</span>
+          </a>
+        ))}
+      </nav>
+    )}
+  </body>
+</html>

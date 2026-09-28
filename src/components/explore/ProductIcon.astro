@@ -1,0 +1,11 @@
+---
+import { Image } from 'astro:assets';
+import type { Project } from '../../data/studio';
+interface Props { project: Project; size?: number; }
+const { project, size = 128 } = Astro.props;
+---
+{typeof project.image === 'string' ? (
+  <img class={`product-icon icon-${project.id}`} src={project.image} alt="" width={size} height={size} decoding="async" />
+) : (
+  <Image class={`product-icon icon-${project.id}`} src={project.image} alt="" width={size} height={size} densities={[1, 2]} format="webp" loading="eager" />
+)}

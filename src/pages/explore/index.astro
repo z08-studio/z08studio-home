@@ -1,0 +1,80 @@
+---
+import ConceptLayout from '../../layouts/ConceptLayout.astro';
+import Brand from '../../components/explore/Brand.astro';
+import Arrow from '../../components/Arrow.astro';
+import { explorations } from '../../data/explorations';
+---
+<ConceptLayout>
+  <div class="overview-shell">
+    <header class="overview-header"><Brand href="/" /><a href="/">View current design <Arrow /></a></header>
+    <main id="main">
+      <div class="overview-intro"><div><h1>Three directions.</h1><p>Open a design to explore it at full size.</p></div><div class="device-picker" role="group" aria-label="Preview size"><button type="button" data-device="desktop" aria-pressed="true">Desktop</button><button type="button" data-device="mobile" aria-pressed="false">Mobile</button></div></div>
+      <div class="design-grid" data-device="desktop">
+        {explorations.map(design => <article class="design-card">
+          <a class="design-thumbnail" href={`/explore/${design.id}/`} aria-label={`Open ${design.name} design`} style={`--preview-background:${design.color}`}>
+            <div class="preview-viewport"><iframe src={`/explore/${design.id}/?embed=1`} title={`${design.name} miniature preview`} tabindex="-1" aria-hidden="true" loading="lazy"></iframe></div>
+            <span class="preview-open" aria-hidden="true"><Arrow /></span>
+          </a>
+          <a class="design-card-title" href={`/explore/${design.id}/`}><span>{design.number}</span><h2>{design.name}</h2><Arrow direction="right" /></a>
+          <p>{design.description}</p>
+        </article>)}
+      </div>
+      <a class="overview-original" href="/">Compare with the current website <Arrow /></a>
+    </main>
+  </div>
+<style>
+  .overview-shell { width: min(100% - 80px, 1480px); margin-inline: auto; color: #27282b; }
+  .overview-header { display: flex; align-items: center; justify-content: space-between; min-height: 100px; border-bottom: 1px solid #dedee0; }
+  .overview-header > a:last-child { display: flex; align-items: center; gap: 12px; font-size: 13px; min-height: 44px; }
+  .overview-intro { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin: 65px 0 40px; }
+  h1 { font-size: clamp(36px, 4vw, 58px); letter-spacing: -.055em; line-height: 1.1; font-weight: 500; }
+  .overview-intro p { margin-top: 16px; font-size: 15px; color: #6d6e75; line-height: 1.6; }
+  .device-picker { display: flex; gap: 4px; padding: 4px; border: 1px solid #dcdde0; border-radius: 999px; }
+  .device-picker button { font-size: 12px; padding: 11px 17px; min-height: 40px; border: 0; border-radius: 999px; background: transparent; color: #5c5d64; cursor: pointer; }
+  .device-picker button[aria-pressed='true'] { background: #28292e; color: #fff; }
+  .design-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  .design-card { min-width: 0; }
+  .design-thumbnail { position: relative; display: flex; align-items: start; justify-content: center; padding: 20px; background: #e9eaec; border: 1px solid #dedfe2; border-radius: 12px; overflow: hidden; }
+  .preview-viewport { width: 100%; height: 340px; background: var(--preview-background); overflow: hidden; box-shadow: 0 3px 15px #0000000c; pointer-events: none; border-radius: 3px; }
+  iframe { display: block; border: 0; width: 1200px; height: 1200px; transform-origin: top left; transform: scale(.3); pointer-events: none; }
+  .preview-open { position: absolute; right: 12px; bottom: 12px; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; border: 1px solid #dcdde1; background: #fff; transition: transform .2s; }
+  .design-thumbnail:hover .preview-open { transform: translate(2px, -2px); }
+  .design-card-title { display: flex; align-items: center; gap: 14px; min-height: 44px; margin-top: 23px; }
+  .design-card-title > span { font-size: 12px; color: #777984; }
+  .design-card-title h2 { font-size: 23px; font-weight: 500; letter-spacing: -.045em; }
+  .design-card-title > svg { margin-left: auto; }
+  .design-card > p { color: #6d6e75; font-size: 14px; line-height: 1.7; margin-top: 8px; max-width: 300px; }
+  .overview-original { display: inline-flex; align-items: center; gap: 18px; min-height: 44px; margin-block: 44px 60px; font-size: 13px; color: #626570; }
+  .overview-original:hover, .overview-header > a:last-child:hover { text-decoration: underline; text-underline-offset: 5px; }
+  .design-grid[data-device='mobile'] .preview-viewport { max-width: 210px; height: 360px; border-radius: 12px; }
+  .design-grid[data-device='mobile'] .design-thumbnail { background: #e9eaec; }
+  @media (max-width: 1100px) { .overview-shell { width: calc(100% - 48px); }.design-grid { gap: 20px; }.design-thumbnail { padding: 12px; }.preview-viewport { height: 290px; } }
+  @media (max-width: 760px) { .overview-shell { width: calc(100% - 40px); }.overview-header { min-height: 86px; }.overview-header > a:last-child { font-size: 11px; gap: 6px; }.overview-intro { flex-direction: column; align-items: start; margin-top: 40px; gap: 24px; }.design-grid { grid-template-columns: 1fr; gap: 36px; }.design-thumbnail { padding: 16px; }.preview-viewport { height: 320px; }.design-card-title { margin-top: 16px; }.design-card > p { max-width: none; }.design-grid[data-device='mobile'] .preview-viewport { max-width: 210px; } }
+</style>
+<script>
+  const grid = document.querySelector<HTMLElement>('.design-grid');
+  const frames = [...document.querySelectorAll<HTMLIFrameElement>('.preview-viewport iframe')];
+  function resizePreviews() {
+    const width = grid?.dataset.device === 'mobile' ? 390 : 1200;
+    for (const frame of frames) {
+      const viewport = frame.parentElement!;
+      const scale = viewport.clientWidth / width;
+      if (!scale) continue;
+      frame.style.width = `${width}px`;
+      frame.style.height = `${Math.ceil(viewport.clientHeight / scale)}px`;
+      frame.style.transform = `scale(${scale})`;
+    }
+  }
+  const observer = new ResizeObserver(resizePreviews);
+  for (const frame of frames) observer.observe(frame.parentElement!);
+  document.querySelectorAll<HTMLButtonElement>('[data-device][aria-pressed]').forEach(button => {
+    button.addEventListener('click', () => {
+      if (!grid) return;
+      grid.dataset.device = button.dataset.device;
+      document.querySelectorAll('[data-device][aria-pressed]').forEach(other => other.setAttribute('aria-pressed', String(other === button)));
+      resizePreviews();
+    });
+  });
+  resizePreviews();
+</script>
+</ConceptLayout>

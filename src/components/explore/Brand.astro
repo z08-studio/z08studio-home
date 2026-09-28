@@ -1,0 +1,8 @@
+---
+interface Props { href?: string; }
+const { href = '#top' } = Astro.props;
+---
+<a class="concept-brand" href={href} aria-label="z08 studio home">
+  <img src="/images/z08-black.svg" alt="" width="62" height="27" />
+  <span>studio</span>
+</a>
