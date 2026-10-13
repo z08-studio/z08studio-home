@@ -67,6 +67,9 @@
   .footer-links > a, .footer-links > button { min-height: 44px; display: inline-flex; align-items: center; }
   .footer-links button { padding: 0; border: 0; background: none; font: inherit; color: inherit; cursor: pointer; }
   .footer-links > a:hover, .footer-links > button:hover { color: var(--blue); }
+  .footer-social { width: 44px; flex: none; justify-content: center; border-radius: 50%; transition: background .2s; }
+  .footer-social img { width: 18px; height: auto; }
+  .footer-social:hover { background: #f5f7fb; }
 }
 
 @layer components {
