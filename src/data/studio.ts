@@ -7,6 +7,7 @@ export const studio = {
   description:
     'Small, focused tools by Bear Wang. One tool, one job, done well. Discover Ztab, Zdraft, and This Week in Obsidian.',
   github: 'https://github.com/z08-studio',
+  x: 'https://x.com/z08studio',
   author: {
     name: 'Bear Wang',
     github: 'https://github.com/boundless-forest',
