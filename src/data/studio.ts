@@ -32,7 +32,7 @@ export const projects: Project[] = [
     name: 'Ztab',
     category: 'Chrome extension',
     description:
-      'Keep your tabs in order across Chrome windows. Find the page you need and get back to what you were doing.',
+      'Manage tabs across all your Chrome windows right from a sidebar. You can easily open, close, search, and group them in one place.',
     href: 'https://chromewebstore.google.com/detail/fakbifeeblnopdhicpmhhmcdhmefphjp',
     linkLabel: 'Meet Ztab',
     image: '/images/ztab.svg',
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     name: 'Zdraft',
     category: 'Mac app',
     description:
-      'Turn rough thoughts into messages you’re ready to send. A focused writing space for drafting, polishing, and translating.',
+      "Stop squeezing your thoughts into tiny text boxes. Here's a dedicated Mac workspace for your messages, emails, and prompts.",
     href: 'https://zdraft.app',
     linkLabel: 'Meet Zdraft',
     image: '/images/zdraft.svg',
