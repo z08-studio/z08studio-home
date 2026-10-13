@@ -1,10 +1,15 @@
 ---
 import Arrow from './Arrow.astro';
+import { studio } from '../data/studio';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
   <div class="footer-brand"><a class="wordmark" href="/" aria-label="z08 studio home"><img src="/images/z08-black.svg" alt="" width="54" height="23" /><span>studio</span></a><span class="copyright">© {year} z08 studio</span></div>
   <div class="footer-links">
+    <a class="footer-social" href={studio.x} target="_blank" rel="noopener noreferrer" title="z08 studio on X">
+      <img src="/images/x.svg" alt="" width="18" height="19" decoding="async" />
+      <span class="sr-only">z08 studio on X (opens in a new tab)</span>
+    </a>
     <a href="/privacy/">Privacy</a>
     <button type="button" data-analytics-settings hidden>Cookie settings</button>
     <a class="back-to-top" href="#top">Back to top <Arrow direction="up" /></a>
